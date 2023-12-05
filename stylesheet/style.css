@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    gap: 1em;
+}
+
+.letters {
+    border: 1px solid black;
+}
+
+#word{
+    border: 1px solid black;
+    width: 100%;
+}
