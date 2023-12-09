@@ -9,8 +9,20 @@
 </head>
 <body>
     <h1>Scrabble Practice!</h1>
-    
-    <h2>Pick your Letters!</h2>
+    <div id="instructions">
+        <h2>Instructions</h2>
+        <div>Click on a letter to create a word of any length below. Try to get the most points you can!</div>
+        <ul>Here is a list of how many points each letter is worth:
+            <li>'Q', 'Z' = 10 Points</li>
+            <li>'J', 'X' = 8 Points</li>
+            <li>'K' = 5 Points</li>
+            <li>'F', 'H', 'V', 'W', 'Y' = 4 Points</li>
+            <li>'B', 'C', 'M', 'P' = 3 Points</li>
+            <li>D, G = 2 Points</li>
+            <li>Everything else = 1 Point</li>
+            <li>Blank Tiles: 0 Points! You can still choose any letter you want.</li>
+        </ul>
+    </div>
     <div id="letter-container" class="container">
         <button class="letters"></button>
         <button class="letters"></button>
@@ -20,14 +32,23 @@
         <button class="letters"></button>
         <button class="letters"></button>
     </div>
-    <button id="refresh">Refresh</button>
 
     <h2>Your Word:</h2>
     <div class="container">
         <div id="word"></div>
     </div>
-    <button id="delete">Delete</button>
+    <div id="errorMsg"></div>
+    <button id="delete">Backspace</button>
     <button type="submit" id="submit">Submit!</button>
+    <button id="refresh">Restart</button>
+    
+    <table id="results">
+        <tr>
+            <th>Word</th>
+            <th>Points</th>
+        </tr>
+    </table>
+
     <script src="script/script.js"></script>
 </body>
 
