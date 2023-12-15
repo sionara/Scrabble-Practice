@@ -25,7 +25,15 @@ let letterBoxes = document.getElementsByClassName("letters"); //returns array of
 let word = document.getElementById("word");
 let letterContainer = document.getElementById("letter-container");
 let prevClick = []; // an array to keep track of the clicked letters in ORDER.
-let errorMsg = document.getElementById("errorMsg");
+let errorMsg = document.getElementById("errorMsg");// error message hidden until needed.
+let totalPoints = 0; //global variable to track total points
+//counter to show total words left
+let counter = document.getElementById("counter");
+counter.innerText = 10;
+
+let deleteBtn = document.getElementById("delete");//backspace. Delete is reserved word in JS, so it cannot be declared as variable.
+let submit = document.getElementById("submit");//submit
+let refresh = document.getElementById("refresh");//restart
 
 function generateLetters() {
     for (let i=0; i < letterBoxes.length; i++){
@@ -34,10 +42,12 @@ function generateLetters() {
         letterBox.innerHTML = randomLetter;
     }
 }
-function startPractice(){
 
+function startPractice(){
+    // initially need to generate random letters.
     generateLetters();
-    // handler for clicking letters.
+
+    // handles event where letters are pressed.
     letterContainer.addEventListener("click", function(e){
         let targetEl = e.target;
         if (targetEl.className === "letters") { // this is to check for if user clicks on the letterContainer element, which is the parent element of the letterBoxes elements.
@@ -50,27 +60,26 @@ function startPractice(){
             prevClick.push(targetEl);
         }
     });
-
+    // function to handle backspace and the event listener
+    deleteBtn.addEventListener("click", deleteLetter);
     function deleteLetter() {
         word.textContent = word.textContent.slice(0, word.textContent.length - 1);
         prevClick[prevClick.length - 1].removeAttribute("disabled");
         prevClick.pop();
     }
-    let deleteBtn = document.getElementById("delete");
-    deleteBtn.addEventListener("click", deleteLetter);
     
-    let refresh = document.getElementById("refresh");
+    // event listener to handel restart
     refresh.addEventListener("click", function(){
-        location.reload();
+        location.reload(); //refreshes page.
     })
 
-    let submit = document.getElementById("submit");
+    // handles the submit event.
     submit.addEventListener("click", function(){
+        let tBody = document.getElementById("tableBody");
         if (word.innerText == "") {errorMsg.innerText = "Please enter a word."}
         else {
             let points = 0;
-            let table = document.getElementById("results");
-            let newRow = table.insertRow();
+            let newRow = tBody.insertRow();
             let cell1 = newRow.insertCell();
             let cell2 = newRow.insertCell();
 
@@ -91,18 +100,38 @@ function startPractice(){
                     points += 1;
                 } //blanks are considered 0 points.
             }
+            
+            cell1.textContent = word.textContent;
+            cell2.textContent = points;
+            totalPoints += points;
 
-                cell1.textContent = word.textContent;
-                cell2.textContent = points;
+        // check if 10 words have been made by checking number of rows.
+            if (tBody.rows.length === 10){
+                let pointsMsg = document.getElementById("finalMsg");
+                let totalPointsMsg = document.getElementById("points");
 
-            // on submit, reset the word, reset disabled attribute and generate new letters.
-            word.innerText = "";
-            prevClick.forEach((letter) => {
-                letter.removeAttribute("disabled");
-            })
-            generateLetters();
-            errorMsg.innerText = "";
+                // hide the game
+                letterContainer.style.display = "none";
+                word.style.display = "none";
+                submit.setAttribute("disabled", ""); 
+                deleteBtn.setAttribute("disabled", "");
+                //displays final message
+                pointsMsg.style.display = "block";
+                totalPointsMsg.innerText = totalPoints;
+
+            } else {
+                // Reset the word, disabled attributes, counter and generate new letters.
+                counter.innerHTML -= 1;
+                word.innerText = "";
+                prevClick.forEach((letter) => {
+                    letter.removeAttribute("disabled");
+                })
+                generateLetters();
+                errorMsg.innerText = "";
+            }
         }
+            
+
         
     })
 }

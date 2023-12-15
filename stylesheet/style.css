@@ -17,3 +17,11 @@
 table, th, td {
     border: 1px solid black;
 }
+
+#finalMsg {
+    display: none;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    color: chartreuse;
+}

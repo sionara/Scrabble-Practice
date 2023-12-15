@@ -11,7 +11,8 @@
     <h1>Scrabble Practice!</h1>
     <div id="instructions">
         <h2>Instructions</h2>
-        <div>Click on a letter to create a word of any length below. Try to get the most points you can!</div>
+        <div>Click on a letter to create a word of any length below. 
+            You only get 10 words, so try to make the most points you can!</div>
         <ul>Here is a list of how many points each letter is worth:
             <li>'Q', 'Z' = 10 Points</li>
             <li>'J', 'X' = 8 Points</li>
@@ -32,7 +33,7 @@
         <button class="letters"></button>
         <button class="letters"></button>
     </div>
-
+    <div><strong id="counter"></strong> Words Left!</div>
     <h2>Your Word:</h2>
     <div class="container">
         <div id="word"></div>
@@ -42,11 +43,19 @@
     <button type="submit" id="submit">Submit!</button>
     <button id="refresh">Restart</button>
     
+    <div id="finalMsg">
+        You scored <span id="points"></span> points! Press restart to play again!
+    </div>
     <table id="results">
-        <tr>
-            <th>Word</th>
-            <th>Points</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Word</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            
+        </tbody>
     </table>
 
     <script src="script/script.js"></script>
